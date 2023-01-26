@@ -6,55 +6,28 @@ for test_case in range(T):
     cnt = 0
 
     # 가로방향 확인
-    res_row = []
+    res_row = [] # 한 행씩 원소로 넣음
     for lst in board:
         res_row.append(''.join(map(str, lst)))
+    res_row_spt = list(map(lambda x: x.split('0'), res_row))
     
-    for nums in res_row:
-        if '0'*k in nums:
-            cnt += 1
-        if '0'*(k+1) in nums:
-            cnt -= 1
-    # print(cnt)
-        print(nums)
-    
+    for nums in res_row_spt:
+        for nums_num in nums:
+            if len(nums_num) == k:
+                cnt += 1
+
     # 세로방향 확인
     res_col = []
-    for lst in board:
-        res_col.append(''.join(map(str, lst)))
-    # print(res_col)
+    for idx in range(n):
+        strs = ''
+        for nums in board:
+            strs = strs + nums[idx]
+        res_col.append(strs)
+    res_col_spt = list(map(lambda x: x.split('0'), res_col))
 
-    for nums in res_col:
-        if '0'*k in nums:
-            cnt += 1
-        if '0'*(k+1) in nums:
-            cnt -= 1
-        
-    # print(cnt)
-
-
-
-    # 가로방향 확인 -> 빼기!
-    for col in range(n): # 0일때
-        for row in range(n): # 0~4 : 가로
-            pass
-
-
-
-
-            # print(board[col][row])
-    # for lst in board:
-    #     res.append(''.join(map(str, lst)))
-    # print(res)
-
-# print('111' in '111101101') # True
-
-
-'''
-a[col][row]
-a[0][0] a[0][1] a[0][2]
-a[1][0] a[1][1] a[1][2]
-a[2][0] a[2][1] a[2][2]
-
-'''
-
+    for nums in res_col_spt:
+        for nums_num in nums:
+            if len(nums_num) == k:
+                cnt += 1
+    
+    print(f'#{test_case+1} {cnt}')
