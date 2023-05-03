@@ -7,5 +7,43 @@
 중간에 .이 나오면 no
 '''
 
-st = list(input())
-print(st)
+
+while 1:
+    st = input()
+    stack = []
+
+    if st == '.':
+        break
+
+    flag = 1
+    if st[-1] != '.':
+        flag = 0
+    else:
+        for s in range(len(st)-1):
+            if st[s] == '.':
+                flag = 0
+                break
+            if not st[s].isdigit():
+                if st[s] == '(' or st[s] == '[':
+                        stack.append(st[s])
+                elif st[s] == ')' or st[s] == ']': 
+                    if not stack:
+                        flag = 0
+                        break
+                    a = stack.pop()
+                    if st[s] == ')':
+                        if a != '(':
+                            flag = 0
+                            break
+                    else:
+                        if a != '[':
+                            flag = 0
+                            break
+                            
+    if flag and not stack:
+        res = 'yes'
+    else:
+        res = 'no'
+
+    print(res)
+    
