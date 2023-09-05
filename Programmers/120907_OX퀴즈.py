@@ -2,25 +2,25 @@ def solution(quiz):
     answer = []
     
     for q in quiz:
-        eq = q.index("=") # 등호 위치
-        left = q[:eq-1] # 공백 제거
-        right = int(q[eq+2:]) # 공백 제거
-
-        for i in range(len(left)):
-            if left[i] == "-" or left[i] == "+":
+        eq = q.find("=") # 등호 위치
+        
+        for i in range(len(q)):
+            if i != 0 and q[i] == "-" or q[i] == "+":
                 pm = i # 플러스 or 마이너스 인덱스
-        x = int(left[:pm-1])
-        y = int(left[pm+2:])
+                break
+                
+        x = int(q[:pm-1])
+        y = int(q[pm+2:eq-1])
+        z = int(q[eq+2:])
         
-        def cal(data):
-            if data == "-":
-                if (x - y == right):
-                    return "O"
-            else:
-                if (x + y == right):
-                    return "O"
-            return "X"    
-        
-        answer.append(cal(left[pm]))
+        if q[pm] == "-":
+            data = (x - y == z)
+        else:
+            data = (x + y == z)
+
+        if data: # true일 때
+            answer.append("O")
+        else:
+            answer.append("X")
         
     return answer
