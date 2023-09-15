@@ -9,15 +9,17 @@ def solution(answers):
     cnt = [[1, 0], [2, 0], [3, 0]] # 학생번호, 맞춘 개수
 
     while i != len(answers):
-        # 1번 학생
-        idx_1 = i % len(pattern[1]) - 1
-        # 2번 학생
-        idx_2 = i % len(pattern[2]) - 1
-        # 3번 학생
-        idx_3 = i % len(pattern[3]) - 1
+        # # 1번 학생
+        # idx_1 = i % len(pattern[1]) - 1
+        # # 2번 학생
+        # idx_2 = i % len(pattern[2]) - 1
+        # # 3번 학생
+        # idx_3 = i % len(pattern[3]) - 1
         
         for n in range(1, 4):
-            if answers[i] == pattern[n][i]:
+            idx = i % len(pattern[n])
+            # print(idx, n)
+            if answers[i] == pattern[n][idx]:
                 cnt[n-1][1] += 1
         i += 1
     
