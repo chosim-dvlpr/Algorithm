@@ -17,8 +17,11 @@ def solution(answers):
         # idx_3 = i % len(pattern[3]) - 1
         
         for n in range(1, 4):
-            idx = i % len(pattern[n])
-            # print(idx, n)
+            if len(pattern[n]) - 1 == i:
+                idx = i
+            else:
+                idx = i % (len(pattern[n]) - 1)
+            # print(i, idx, n)
             if answers[i] == pattern[n][idx]:
                 cnt[n-1][1] += 1
         i += 1
