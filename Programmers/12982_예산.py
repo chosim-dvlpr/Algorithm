@@ -1,27 +1,21 @@
 def solution(d, budget):
     # d : 예산 리스트
-    # budget : 채워야 하는 예산
+    # budget : 가능한 최대 예산 (부족해도 됨)
     # 완전탐색
     
     d.sort()
     d_length = len(d)
-    mx_cnt = 0
-        
-    # 나올 수 있는 모든 부분 집합의 경우의 수 : 2^n (공집합 포함)
-    for i in range(1, 1<<d_length): # i : 1 ~ 2^d_length - 1
-        for j in range(d_length): # j : 0 ~ d_length
-            pass
-        
+    mx_cnt = 0 # 최대 부서 수
     
-#     while 1:
-#         if i == (d_length - mx_cnt):
-#             break
-
-#         cnt = 0 # 지원할 수 있는 부서의 개수
+    for i in range(1, 1<<d_length):
+        total = 0 # 비용 합계
+        cnt = 0 # 지원 가능한 부서 수
         
-#         for j in range(i, d_length):
-#             pass
-#         i += 1
+        for j in range(d_length):
+            if i & (1<<j): # i의 j번째 위치가 1이라면
+                total += d[j]
+                cnt += 1
+                if total <= budget and mx_cnt < cnt:
+                    mx_cnt = cnt
 
-    answer = 0
-    return answer
+    return mx_cnt
