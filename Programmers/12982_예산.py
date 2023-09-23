@@ -15,6 +15,9 @@ def solution(d, budget):
             if i & (1<<j): # i의 j번째 위치가 1이라면
                 total += d[j]
                 cnt += 1
+                # print(i, j, cnt)
+                if total > budget:
+                    break
                 if total <= budget and mx_cnt < cnt:
                     mx_cnt = cnt
 
