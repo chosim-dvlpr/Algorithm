@@ -15,6 +15,8 @@ def solution(d, budget):
         elif budget == 0:
             answer = i+1
             break
+    else:
+        answer = len(d)
 
                     
     return answer
