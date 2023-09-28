@@ -1,3 +1,4 @@
+import sys
 from collections import deque
 
 def solution (end):
@@ -22,7 +23,7 @@ def solution (end):
   return answer
 
 
-end = int(input())
+end = int(sys.stdin.readline())
 
 for n in solution(end):
   print(n, end=" ")
