@@ -1,23 +1,18 @@
 import sys
-from itertools import combinations
 
 n, m = map(int, sys.stdin.readline().split())
+lst = list(_ for _ in range(1, n+1))
+arr = []
 
-def solution(n, m):
-  lst = list(_ for _ in range(1, n+1))
-
-  print("lst : ", lst)
+def solution():
+  if len(arr) == m:
+    print(' '.join(map(str, arr)))
+    return
 
   for i in range(1, n+1):
-    for j in range(1, 1<<i):
-      print(i, j)
+    if i not in arr:
+      arr.append(i)
+      solution()
+      arr.pop()
 
-
-  # if m != 1:
-  #   arr = list(combinations(lst, m))
-    
-  #   for a in arr:
-  #     print(''.join(str(a)))
-  #   all_lst = list(a for a in arr)
-  # return all_lst
-print(solution(n, m))
+solution()
