@@ -13,8 +13,8 @@ def merge_sort(lst):
   if len(lst) == 1:
     return lst
   
-  mid = len(lst) // 2 # 중앙값
-  
+  mid = (len(lst)+1) // 2 # 중앙값
+
   left = lst[:mid]    # 중앙값의 앞쪽까지
   right = lst[mid:]   # 중앙값부터 끝까지
   
