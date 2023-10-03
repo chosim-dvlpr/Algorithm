@@ -17,10 +17,13 @@ n = int(input())
 lst = []
 
 for _ in range(n):
-  name, lan, eng, math = map(str, input().split())
-  lst.append([name, int(lan), int(eng), int(math)])
+  lst.append(input().split())
+  
+  # name, lan, eng, math = map(str, input().split())
+  # lst.append([name, int(lan), int(eng), int(math)])
 
-lst.sort(key=lambda x : (-x[1], x[2], -x[3], x[0]))
+lst.sort(key=lambda x : (-int(x[1]), int(x[2]), -int(x[3]), x[0]))
+# lst.sort(key=lambda x : (-x[1], x[2], -x[3], x[0]))
 
 for i in lst:
   print(i[0])
