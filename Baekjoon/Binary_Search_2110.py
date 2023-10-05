@@ -15,3 +15,11 @@ for _ in range(n):
     # lst.append(input().replace('\n', ''))
     lst.append(int(input()))
 
+def binary_search(lst):
+    lst.sort()
+    start = 0
+    end = len(lst) - 1
+
+    while start <= end:
+        mid = (start + end) // 2
+        
