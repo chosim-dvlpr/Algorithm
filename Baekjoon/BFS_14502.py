@@ -7,13 +7,14 @@
 # 최종 0의 개수 세기
 
 import sys
+import copy
 from collections import deque
 
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-arr = [] # 초기 배열
-well = deque([[0]*m for _ in range(n)]) # 벽 세운 뒤의 배열
+arr = deque([]) # 초기 배열
+# well = deque([[0]*m for _ in range(n)]) # 벽 세운 뒤의 배열
 # well = [[0]*m for _ in range(n)] # 벽 세운 뒤의 배열
 
 # 초기 배열
@@ -21,45 +22,45 @@ for _ in range(n):
     arr.append(list(map(int, input().split())))
 
 delta = [(0, 1), (0, -1), (1, 0), (-1, 0)] # 방향
-cnt = 0 # 새로 세운 벽의 개수
+# cnt = 0 # 새로 세운 벽의 개수
 result = 0 # 안전지대 개수
 
-# 바이러스 전염
-def virus(x, y):
-    for d in delta:
-        nx = x + d[0]
-        ny = y + d[1]
-        if 0 <= nx and nx < n and 0 <= ny and ny < m:
-            if well[nx][ny] == 0:
-                well[nx][ny] = 2 # 바이러스 감염
-                virus(nx, ny)
+def bfs():
+    global result
 
-# 안전지대 개수 확인
-def safe_zone():
-    safe = 0
+    queue = deque() # 바이러스가 있는 곳의 좌표
+    well = copy.deepcopy(arr)
+    
+    # 바이러스 전파하기
     for i in range(n):
         for j in range(m):
-            if well[i][j] == 0:
-                safe += 1
-    return safe
+            if well[i][j] == 2:
+                queue.append((i, j))
+                # virus(i, j)
+    # result = max(result, safe_zone())
+    # return
+    while queue:
+        x, y = queue.popleft()
+
+        for d in delta:
+            nx = x + d[0]
+            ny = y + d[1]
+            if 0 > nx or n <= nx or 0 > ny or m <= ny:
+                continue
+            if well[nx][ny] == 0:
+                well[nx][ny] = 2 # 바이러스 감염
+                queue.append((nx, ny)) # 바이러스 위치 좌표 추가
+    safe = 0
+    for i in range(n):
+        safe += well[i].count(0)
+    result = max(result, safe)
 
 # 벽 세우기
 def add_well(cnt):
-    global result
 
     # 종료조건
     if cnt == 3:
-        # 배열 업데이트
-        for i in range(n):
-            for j in range(m):
-                well[i][j] = arr[i][j]
-        
-        # 바이러스 전파하기
-        for i in range(n):
-            for j in range(m):
-                if well[i][j] == 2:
-                    virus(i, j)
-        result = max(result, safe_zone())
+        bfs()
         return
     
     # 아직 벽을 세 개 미만 추가했을 때 새로 벽을 세움
