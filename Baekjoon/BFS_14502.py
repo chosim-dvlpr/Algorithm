@@ -7,16 +7,18 @@
 # 최종 0의 개수 세기
 
 import sys
+from collections import deque
 
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
 arr = [] # 초기 배열
-well = [[0]*m for _ in range(n)] # 벽 세운 뒤의 배열
+well = deque([[0]*m for _ in range(n)]) # 벽 세운 뒤의 배열
+# well = [[0]*m for _ in range(n)] # 벽 세운 뒤의 배열
 
 # 초기 배열
 for _ in range(n):
-  arr.append(list(map(int, input().split())))
+    arr.append(list(map(int, input().split())))
 
 delta = [(0, 1), (0, -1), (1, 0), (-1, 0)] # 방향
 cnt = 0 # 새로 세운 벽의 개수
