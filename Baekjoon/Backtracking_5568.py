@@ -10,49 +10,24 @@ input = sys.stdin.readline
 
 n = int(input())
 k = int(input())
-cards = [input().strip() for _ in range(n)]
+cards = [input().strip() for _ in range(n)] # 보유한 카드
 
-card_list = []
+card_list = [] # 카드를 모아 만든 값을 넣을 리스트
 
-def pick(st, n, picked):
-  if n == k:
-    pass
+def pick(st, i, picked):
+    # [2] 인덱스가 뽑을 개수와 같아질 때
+    if i == k:
+        if st not in card_list: # 합친 문자열이 리스트에 없다면 추가
+            card_list.append(st)
+        return
+    
+    # [1]
+    for idx in range(n): # picked 순회
+        if not picked[idx]: # picked[idx]가 0일 때
+            picked[idx] = 1 # 1로 바꿔주고 재귀
+            pick(st + cards[idx], i+1, picked)
+            picked[idx] = 0 # 0으로 초기화
 
-
-
-lst = [] # 문자열
-for _ in range(n):
-  lst.append(input().replace('\n', ''))
-
-cnt = 0 # 만들 수 있는 정수의 개수
-result = [] # 만든 정수 리스트
-visited = [0]*n
-st = ''
-
-def bt(visited, i, k):
-  select = [1, 0] # 뽑거나, 안뽑거나
-
-  # 뽑은 횟수가 k와 같아지면
-  if i == k:
-    for idx in range(k):
-      if visited[idx]: # 방문한 자리일 때
-        print(lst[idx])
-    print()
-  else:
-    for i in range(2):
-      visited[i] = select[i] # 뽑거나, 안뽑거나
-      bt(visited, i+1, k)
-bt(visited, 0, k)
-
-#   if i == n or i == k:
-#     result.append(st)
-#     return result
-  
-#   if not visited[i]:
-#     st += lst[i]
-#     visited[i] = 1 # 방문 표시
-#     bt(i+1)
-#     visited[i] = 0
-
-# print(bt(0))
-# print(result)
+picked = [0] * n
+pick("", 0, picked)
+print(len(card_list))
