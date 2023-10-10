@@ -6,16 +6,25 @@ arr = [[0]*n for _ in range(n)]
 delta = [(-1, 0), (1, 0), (-1, -1), (0, -1), (1, -1), (-1, 1), (0, 1), (1, 1)]
 cnt = 0
 
-def bt():
-  for i in range(n):
-    for j in range(n):
-      arr[i][j] = 1 # queen의 위치
+def bt(row, col):
+  global cnt
+
+  if row == n and col == n:
+    print(cnt)
+    return
+  
+  for i in range(row, n):
+    for j in range(col, n):
       for d in delta:
+        print(i, j, d)
         nx, ny = i+d[0], j+d[1]
         if 0 <= nx and nx < n and 0 <= ny and ny < n and arr[nx][ny] == 1:
-          arr[i][j] = 0
-          break
+          # arr[i][j] = 0
+          bt(i, j)
+        else:
+          arr[i][j] = 1 # queen의 위치
+          cnt += 1
 
 
-bt()
-print(arr)
+bt(0, 0)
+# print(arr)
