@@ -10,7 +10,8 @@ def is_promising(x):
   for i in range(x): # 0부터 x-1까지
     # 대칭 방향에 퀸이 놓여있는 경우는 제외
     # 대각선 위치에 퀸이 놓여있는 경우는 제외
-    if row[x] == row[i] or abs(row[x] - row[i]) == abs(x - i):
+    mn = row[x] - row[i]
+    if mn == 0 or abs(mn) == abs(x - i):
       return False
   
   return True
@@ -21,11 +22,19 @@ def n_queen(x):
     ans += 1 # is_promising()함수의 종료 없이 마지막까지 종료되었음을 의미
     return
 
-  else:
-    for y in range(n):
-      row[x] = y # [x, y] 위치에 퀸을 놓음
+  elif x > 1:
+    # 윗열까지의 y값 중 왼쪽 대각선의 직전 y값까지만 순회
+    for i in range(row[x-1]-1):
+      row[x] = i
       if is_promising(x):
         n_queen(x+1)
+    # 윗열
+    for i in range(row[x-1]+1, n):
+
+    # for y in range(n):
+    #   row[x] = y # [x, y] 위치에 퀸을 놓음
+    #   if is_promising(x):
+    #     n_queen(x+1)
 
 n_queen(0)
 print(ans)
