@@ -1,52 +1,74 @@
 def solution(input_string):
-    answer = 0
-    find_alpha = '' # 찾고자 하는 문자
-    n = len(input_string)
-    res = [] # 외톨이 알파벳을 담을 리스트
+    answer = ''
+    res = [] # 외톨이 알파벳 담을 리스트
+
+    length = len(input_string) # 11개
+    
+    # input_string : 'edeaaabbccd'
+    
+    # 연속으로 같은 문자열 확인
+    def check_string(idx):
+        rng = []
+        i = 1
+        while 1:
+            if idx + i >= length:
+                break
+
+            if input_string[idx+i] == input_string[idx]:
+                rng.append(idx+i)                
+                i += 1
+                
+            else:
+                break
+
+        if rng:
+            rng = [idx] + rng
+            print('rng : ', rng)
+            return rng
+        else:
+            return [idx]
+    # s : 2, end : 3
+    def find_string(start, end):
+        rng = end - start + 1 # 2
+        i = end + 1           # 4
+        while 1:
+            # 같은 문자열을 찾지 못했을 때
+            if i >= length - (end - start):
+                return False
+            
+            # 주어진 문자열과 같은 문자열이 있을 때
+            # input_string[2:4] == input_string[4:6]
+            if input_string[start:end+1] == input_string[i:i+rng]:
+                # 같은 문자열의 다음 인덱스가 범위 안에 있고, 주어진 문자와 다른 문자일 때
+                if i + rng < length and input_string[i] != input_string[i+rng]:
+                    return True
+                # 같은 문자열이 가장 마지막에 위치한 문자열일 때
+                if i + rng + 1 >= length:
+                    return True
+            i += rng # i는 4 + 2 = 6
+        
+
+    
+    
+    
     idx = 0
     
-    # 다음 문자가 같은 문자인지 확인
-    def if_same(idx, word):
-        length = 0
-        
-        for i in range(idx, n):
-            if input_string[i] == word:
-                length += 1
-            else:
-                return length
-    
-    # 문자열 전체 확인
-    def check(i):
-        
-        
-        while 1:
-            # 뒤에서 두번째까지 확인
-            if i == n-1:
-                break
-                
-            # i+1번째부터 input_string[i]와 같은 문자가 있다면 개수 반환
-            length = if_same(i+1, input_string[i]) 
+    while 1:
+        # 마지막 인덱스일 때
+        if idx >= length-1:
+            break
+        a = check_string(idx)
 
-            st = input_string[i:i+length+1] # 반복되는 (되지 않는) 기준 문자열
-            
-            # 기준 문자열의 다음 인덱스부터 끝까지 순회
-            for j in range(i+length+1, n-length-i):
-                find_st = input_string[j:j+length+1] # 기준 문자열과 같은 문자열이 있는지 비교
-                print("find_st", find_st, st, j, j+length)
-                
-                if find_st == st:
-                    print("같음")
-                    if find_st not in res:
-                        res.append(find_st)
-                        print("res : ", res)
-                    check(i+length+1)
-            return
-                
-            # if st not in res:
-            #     res.append(st)
-                
-    check(0)     
-    answer = ''.join(set(res))
-    
-    
+        if input_string[a[0]:a[-1]+1] not in res:
+            r = find_string(a[0], a[-1])
+
+            if r: # 같은 문자열이 있을 때
+                res.append(input_string[a[0]:a[0]+1])
+        idx += a[-1] - a[0] + 1
+    if res:
+        res.sort()
+        answer = ''.join(res)    
+    else:
+        answer = "N"
     return answer
+            
