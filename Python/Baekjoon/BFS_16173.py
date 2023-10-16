@@ -14,7 +14,7 @@ arr = []
 for _ in range(n):
   arr.append(list(map(int, input().split())))
 
-res = "res : "
+res = "Hing"
 delta = [(0, 1), (1, 0)]
 
 def bfs(x, y):
@@ -22,23 +22,21 @@ def bfs(x, y):
 
   if arr[x][y] == -1:
     res = "HaruHaru"
-    # print(res)
     return 
   
   for d in delta:
     nx, ny = x+d[0]*arr[x][y], y+d[1]*arr[x][y]
-    # print(nx, ny)
     if 0 <= nx and nx < n and 0 <= ny and n > ny:
-      # print('조건충족', res)
+      # 다음 이동할 지역의 값이 0이면 더는 이동할 수 없으므로 다음 delta로 넘어감
+      if arr[nx][ny] == 0:
+        continue
       bfs(nx, ny)
       if res == "HaruHaru":
         break
       
     else: # 실패
-      # print('실패', res)
       res = "Hing"
-      break
-  return
+      continue
 
 bfs(0, 0)
 print(res)
