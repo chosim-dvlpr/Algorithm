@@ -16,7 +16,6 @@ for _ in range(n):
 
 res = "res : "
 delta = [(0, 1), (1, 0)]
-x, y = 0, 0
 
 def bfs(x, y):
   global res
@@ -38,7 +37,8 @@ def bfs(x, y):
     else: # 실패
       # print('실패', res)
       res = "Hing"
-      return
+      break
+  return
 
 bfs(0, 0)
 print(res)
