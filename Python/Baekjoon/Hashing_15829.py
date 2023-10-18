@@ -8,11 +8,11 @@
 import sys
 
 L = int(sys.stdin.readline()) # 문자열의 길이
-st = list(map(str, sys.stdin.readline()))
+st = list(map(str, sys.stdin.readline().strip()))
 
-# print(ord('z')-96)
 sum = 0
-for i, s in enumerate(st):
-  if i < L:
-    sum += (ord(s)-96) * (31 ** i)
-print(sum)
+M = 1234567891
+
+for i in range(len(st)):
+    sum += (ord(st[i])-96) * (31 ** i)
+print(sum % M)
