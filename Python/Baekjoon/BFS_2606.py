@@ -16,22 +16,24 @@ for _ in range(node):
     graph[b].append(a)
 
 cnt = 0
-print(graph)
+# print(graph)
 def bfs(idx):
     global cnt
-
-    if idx == node+1:
-        print("종료")
-        return
+    # print(cnt)
+    if idx == n+1:
+        # print("종료")
+        # print(cnt)
+        return 
 
     for e in graph[idx]:
-        print("idx: ", idx, "e :", e)
+        # print("idx: ", idx, "e :", e)
         if not visited[e]:
-            cnt += 1
             visited[e] = 1
-            print('not visited')
-            print()
-            bfs(idx+1)
+            # print('not visited')
+            # print()
+            cnt += 1
+            bfs(e)
+
 
 bfs(1)
 print(cnt)
