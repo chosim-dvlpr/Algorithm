@@ -10,47 +10,69 @@ import sys
 
 input = sys.stdin.readline
 
-def merge_sort(lst):
-  if len(lst) < 2:
-    return lst
+# round(1.5) => 2
+# round(2.5) => 2
+# int(2.5) = 2
 
-  mid = len(lst)//2
-  left = merge_sort(lst[:mid])
-  right = merge_sort(lst[mid:])
+def rnd(n):
+  return int(n) + (1 if n - int(n) >= 0.5 else 0)
 
-  return merge(left, right)
-
-def merge(left, right):
-  merged = []
-  ll = rr = 0
-  while ll < len(left) or rr < len(right):
-    if ll < len(left) and rr < len(right):
-      if left[ll] < right[rr]:
-        merged.append(left[ll]) # 더 작은 것을 저장
-        ll += 1
-      else:
-        merged.append(right[rr])
-        rr += 1
-    elif ll < len(left): # 오른쪽은 다 소진한 경우
-      merged.append(left[ll])
-      ll += 1
-    elif rr < len(right): # 왼쪽은 다 소진한 경우
-      merged.append(right[rr])
-      rr += 1
-  return merged
 
 n = int(input()) # 난이도 의견의 개수
-lst = []
+cut = rnd(n*0.15)
 
-for _ in range(n):
-  lst.append(int(input()))
+if n == 0:
+  print(0)
+else:
+  lst = []
 
-cut = round(n*0.15)
-merged_list = merge_sort(lst)
-merged_list = merged_list[cut:n-cut]
-l = len(merged_list)
-sums = sum(merged_list)
+  for _ in range(n):
+    lst.append(int(input()))
+  lst.sort()
 
-print(round(sums/l))
+  res = 0
+  for i in range(cut, n-cut):
+    res += lst[i]
+  res = res/(n - 2*cut)
+  print(rnd(res))
+
+# def merge_sort(lst):
+#   if len(lst) < 2:
+#     return lst
+
+#   mid = len(lst)//2
+#   left = merge_sort(lst[:mid])
+#   right = merge_sort(lst[mid:])
+
+#   return merge(left, right)
+
+# def merge(left, right):
+#   merged = []
+#   ll = rr = 0
+#   while ll < len(left) or rr < len(right):
+#     if ll < len(left) and rr < len(right):
+#       if left[ll] < right[rr]:
+#         merged.append(left[ll]) # 더 작은 것을 저장
+#         ll += 1
+#       else:
+#         merged.append(right[rr])
+#         rr += 1
+#     elif ll < len(left): # 오른쪽은 다 소진한 경우
+#       merged.append(left[ll])
+#       ll += 1
+#     elif rr < len(right): # 왼쪽은 다 소진한 경우
+#       merged.append(right[rr])
+#       rr += 1
+#   return merged
+
+
+
+# cut = round(n*0.15)
+# merged_list = merge_sort(lst)
+# merged_list = merged_list[cut:n-cut]
+# l = n - 2*cut
+# sums = sum(merged_list)
+
+# print(round(sums/l))
 
 
