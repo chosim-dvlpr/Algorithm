@@ -20,7 +20,6 @@ res = 0
 for k in range(257): # 땅 높이 전체 순회
   # 얻은 블록 수, 사용할 블록 수
   use, take = 0, 0
-  sec = 0
   for i in range(n):
     for j in range(m):
       height = arr[i][j]
@@ -31,9 +30,9 @@ for k in range(257): # 땅 높이 전체 순회
   if b + take < use:
     continue
   else:
-    sec += take * 2 + use
+    sec = take * 2 + use
 
-  if mn > sec:
+  if mn >= sec:
     mn = sec
     if res < k:
       res = k
