@@ -14,27 +14,27 @@ n, m, b = map(int, input().split())
 arr = []
 for _ in range(n):
   arr.append(list(map(int, input().split())))
-sums = 0
-for a in arr:
-  sums += sum(a)
 
-avg = int(sums/n/m)
-sec = 0
-for i in range(n):
-  for j in range(m):
-    while arr[i][j] != avg:
-      print('실행')
-      if arr[i][j] < avg:
-        if b != 0:
-          sec += 1
-          arr[i][j] += 1
-          b -= 1
-          continue
-        else:
-          avg -= 1
-          continue
-      elif arr[i][j] > avg:
-        sec += 2
-        arr[i][j] -= 1
-        b += 1
-print(sec, avg)
+mn = 987654321
+res = 0
+for k in range(257): # 땅 높이 전체 순회
+  # 얻은 블록 수, 사용할 블록 수
+  use, take = 0, 0
+  sec = 0
+  for i in range(n):
+    for j in range(m):
+      height = arr[i][j]
+      if height > k: # 땅 높이보다 높을 경우
+        take += (height - k)
+      else:          # 땅 높이보다 낮을 경우
+        use += (k - height)
+  if b + take < use:
+    continue
+  else:
+    sec += take * 2 + use
+
+  if mn > sec:
+    mn = sec
+    if res < k:
+      res = k
+print(mn, res)
