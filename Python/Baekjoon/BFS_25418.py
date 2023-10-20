@@ -18,6 +18,8 @@ def calc(a, idx):
         return
     
     else:
+        if cnt < idx:
+            return
         calc(a * 2, idx+1)
         calc(a + 1, idx+1)
         # # print("cnt : ", cnt)
