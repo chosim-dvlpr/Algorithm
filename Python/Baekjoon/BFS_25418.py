@@ -18,13 +18,15 @@ def calc(a, idx):
         return
     
     else:
-        # print("cnt : ", cnt)
-        for i in range(2):
-            # print("i : ", i)
-            if i:
-                calc(a * 2, idx+1)
-            else:
-                calc(a + 1, idx+1)
+        calc(a * 2, idx+1)
+        calc(a + 1, idx+1)
+        # # print("cnt : ", cnt)
+        # for i in range(2):
+        #     # print("i : ", i)
+        #     if i:
+        #         calc(a * 2, idx+1)
+        #     else:
+        #         calc(a + 1, idx+1)
 
 calc(a, 0)
 print(cnt)
