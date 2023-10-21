@@ -11,17 +11,19 @@ input = sys.stdin.readline
 
 n, m = map(int, input().split())
 lst = dict()
+convert_lst = dict()
 
 for i in range(1, n+1):
-  lst[str(i)] = input().strip()
+  st = input().strip()
+  lst[str(i)] = st
+  convert_lst[st] = str(i)
+  
 
 for _ in range(m):
   quiz = input().strip()
   a = lst.get(quiz, False)
   if a == False: # 문자로 들어왔을 때
-    for key, value in lst.items():
-      if value == quiz:
-        print(key)
+    print(convert_lst[quiz])
   else:
     print(a) 
 
