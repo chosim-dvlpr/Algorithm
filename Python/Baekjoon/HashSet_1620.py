@@ -18,10 +18,19 @@ for _ in range(n):
 
 for _ in range(m):
   quiz = input().strip()
-  if quiz.isnumeric():
-    print(lst[int(quiz)-1])
-  else:
-    print(lst.index(quiz)+1)
+  for i, name in enumerate(lst):
+    if str(i+1) == quiz:
+      print(name)
+    elif name == quiz:
+      print(i+1)
+
+
+# for _ in range(m):
+#   quiz = input().strip()
+#   if quiz.isnumeric():
+#     print(lst[int(quiz)-1])
+#   else:
+#     print(lst.index(quiz)+1)
 
   
 
