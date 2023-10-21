@@ -6,25 +6,41 @@
 # 숫자로 들어오면 문자 출력
 
 import sys
+from collections import deque
 
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-lst = dict()
+lst = deque([])
 
-for i in range(1, n+1):
-  lst[str(i)] = input().strip()
+for _ in range(n):
+  lst.append(input().strip())
 
 for _ in range(m):
   quiz = input().strip()
-  for key, value in lst.items():
-    if quiz == key:
-      print(value)
-    elif quiz == value:
-      print(key)
-  # quiz = input().strip()
+  if quiz.isnumeric():
+    print(lst[int(quiz)-1])
+  else:
+    print(lst.index(quiz)+1)
 
-  # if quiz.isnumeric():
-  #   print(lst[int(quiz)])
-  # else:
-  #   print(lst[index(quiz)])
+  
+
+
+# lst = dict()
+
+# for i in range(1, n+1):
+#   lst[str(i)] = input().strip()
+
+# for _ in range(m):
+#   quiz = input().strip()
+#   for key, value in lst.items():
+#     if quiz == key:
+#       print(value)
+#     elif quiz == value:
+#       print(key)
+#   # quiz = input().strip()
+
+#   # if quiz.isnumeric():
+#   #   print(lst[int(quiz)])
+#   # else:
+#   #   print(lst[index(quiz)])
