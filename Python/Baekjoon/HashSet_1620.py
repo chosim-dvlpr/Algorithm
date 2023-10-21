@@ -6,23 +6,38 @@
 # 숫자로 들어오면 문자 출력
 
 import sys
-from collections import deque
 
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-lst = deque([])
+lst = dict()
 
-for _ in range(n):
-  lst.append(input().strip())
+for i in range(1, n+1):
+  lst[str(i)] = input().strip()
 
 for _ in range(m):
   quiz = input().strip()
-  for i, name in enumerate(lst):
-    if str(i+1) == quiz:
-      print(name)
-    elif name == quiz:
-      print(i+1)
+  a = lst.get(quiz, False)
+  if a == False: # 문자로 들어왔을 때
+    for key, value in lst.items():
+      if value == quiz:
+        print(key)
+  else:
+    print(a) 
+
+
+# lst = deque([])
+
+# for _ in range(n):
+#   lst.append(input().strip())
+
+# for _ in range(m):
+#   quiz = input().strip()
+#   for i, name in enumerate(lst):
+#     if str(i+1) == quiz:
+#       print(name)
+#     elif name == quiz:
+#       print(i+1)
 
 
 # for _ in range(m):
@@ -34,20 +49,14 @@ for _ in range(m):
 
   
 
+ 
+  # for key, value in lst.items():
+  #   if quiz == key:
+  #     print(value)
+  #   elif quiz == value:
+  #     print(key)
 
-# lst = dict()
-
-# for i in range(1, n+1):
-#   lst[str(i)] = input().strip()
-
-# for _ in range(m):
-#   quiz = input().strip()
-#   for key, value in lst.items():
-#     if quiz == key:
-#       print(value)
-#     elif quiz == value:
-#       print(key)
-#   # quiz = input().strip()
+  # quiz = input().strip()
 
 #   # if quiz.isnumeric():
 #   #   print(lst[int(quiz)])
