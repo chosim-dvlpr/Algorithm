@@ -13,15 +13,15 @@ for _ in range(n):
 cnt = 0
 
 def get_cnt(idx, k, cnt):
-  # print(idx, k, cnt)
-  if idx < 0:
-    return
-  
   if k == 0:
     print(cnt)
+    return
+
+  if idx < 0:
+    return
 
   for i in range(idx, -1, -1):
-    if lst[i] < k:
+    if lst[i] <= k:
       break
   
   get_cnt(i-1, k%lst[i], cnt+k//lst[i])
