@@ -17,4 +17,12 @@ calc[1] = float(input().strip())
 for i in range(2, n+1):
     # new = float(input())
     calc[i] = round(calc[i-1] * float(input().strip()), 6)
-print(calc[:n+1])
+
+mx = 0 # 누적곱의 최대
+for i in range(1, n+1):
+    for j in range(1, i):
+        temp = calc[i]/calc[j]
+        if mx < temp:
+            print(i, j)
+            mx = temp
+print(temp)
