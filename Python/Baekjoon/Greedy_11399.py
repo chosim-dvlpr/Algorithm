@@ -4,38 +4,40 @@
 # 누적합 구하기 => 최솟값 찾기
 # 누적합이 현재 최솟값보다 크면 종료
 
+# 값이 작은 순으로 순서를 정하기
+
 import sys
 from collections import deque
 input = sys.stdin.readline
 
 n = int(input())
-p = deque([0] + list(map(int, input().split()))) # 1~n번까지의 값
-picked = [0 for _ in range(n+1)] # 해당 번호 선택했는지 여부
+lst = list(map(int, input().split())) # 1~n번까지의 값
 
-lst = []
-mn = 9876543210
+sums = 0
+lst.sort()
+for i, d in enumerate(lst):
+    sums += (d * (n-i))
+print(sums)
 
 
 
-def bfs(chosen, picked):
-    global mn
-    if len(chosen) == n:
-        # print(chosen)
-        arr = [0] * n # 누적합
-        arr[0] = chosen[0]
-        for i in range(1, n):
-            arr[i] = arr[i-1] + chosen[i]
-        if arr[-1] < mn:
-            mn = arr[-1]
-            print('mn 업데이트 : ', mn)
-        return
+
+# def bfs(chosen, picked):
+#     global mn
     
-    for i in range(1, n+1):
-        if not picked[i]:
-            chosen.append(p[i])
-            picked[i] = 1
-            bfs(chosen, picked)
-            picked[i] = 0
-            chosen.pop()
-bfs([], picked)
-
+#     if len(chosen) == n:
+#         sums = 0
+#         for i in range(n):
+#             sums += chosen[i] * (i+1)
+#         if sums < mn:
+#             mn = sums
+#         return
+#     for i in range(1, n+1):
+#         if not picked[i]:
+#             chosen.append(p[i])
+#             picked[i] = 1
+#             bfs(chosen, picked)
+#             picked[i] = 0
+#             chosen.pop()
+# bfs([], picked)
+# print(mn)
