@@ -2,9 +2,9 @@ mx = 0
 
 # 순열 (순서 상관 O)
 def permentation(n, visited, st, numbers):
-    global mn
+    global mx
 
-    if st != '' and int(st) >= mx:
+    if st != '' and sum(visited) == n and int(st) >= mx:
         mx = int(st)
         return
     
@@ -14,7 +14,7 @@ def permentation(n, visited, st, numbers):
             permentation(n, visited, st+str(numbers[i]), numbers)
             visited[i] = 0
     
-    pass
+    
 
 def solution(numbers):
     # 원소가 0일 때 => 제외
