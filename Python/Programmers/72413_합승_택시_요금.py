@@ -4,45 +4,44 @@
 # n : 노드 개수
 # s : 출발지점
 import heapq
-mx = 9876543210
 
-def dijkstra(n, arr, s):
-    distance = [mx for _ in range(n+1)]
-    distance[s] = 0 # 자기 자신은 제외
-    q = [[s, 0]] # [출발 인덱스, 누적 요금]
-    
-    while q:
-        print(q)
-        curr, dist = heapq.heappop(q)
-        # if distance[curr] < dist:
-            # continue
-        for i in arr[curr]:
-            cost = distance[curr] + i[1]
-            if distance[i[0]] > cost:
-                distance[i[0]] = cost
-                heapq.heappush(q, (i[0], cost))
-    return distance
-        
-        
-#         departure, fee = heappop(start)
-#         print("for문 이전 : ", departure, fee)
-#         for arrive, fee2 in arr[departure]:
-#             print(arrive, fee2)
-#             fee2 += fee # 누적합
-#             # 최솟값 찾기
-#             if lst[arrive] > fee2:
-#                 lst[arrive] = fee2
-#                 heappush(start, [arrive, fee2])
-#     print(lst)
-#     return lst
-            
-        
 def solution(n, s, a, b, fares):
-    # i = 노드번호, arr[i] = [(연결된 노드번호, 금액)]
-    arr = [[] for _ in range(n+1)]
-    for fare in fares:
-        arr[fare[0]].append((fare[1], fare[2]))
-        arr[fare[1]].append((fare[0], fare[2]))
+    INF = 9876543210
+    answer = INF
+    graph = [[] for _ in range(n+1)]
     
-    # s부터 시작하는 최소 이동 거리 구하기
-    distance = dijkstra(n, arr, s)
+    # start -> end 요금을 담은 graph
+    # graph[출발점] = (종료지점, 비용)
+    # 양방향
+    for fare in fares:
+        start, end, fee = fare
+        graph[start].append((end, fee))
+        graph[end].append((start, fee))
+    
+    def dijkstra(s):
+        q = []
+        distance = [INF] * (n+1) # 최단거리 배열
+        heapq.heappush(q, (0, s)) # q에 (비용, 노드번호) 저장
+        distance[s] = 0 # 시작노드의 비용을 0으로 저장
+        
+        while q:
+            dist, curr = heapq.heappop(q)
+            # 현재 노드가 이미 처리된 노드면 무시
+            if distance[curr] < dist: 
+                continue
+            
+            for g in graph[curr]:
+                # g : (curr에서 갈 수 있는 노드 번호, 해당 노드까지의 비용)
+                cost = dist + g[1]
+                # 최단거리 갱신
+                if cost < distance[g[0]]:
+                    distance[g[0]] = cost
+                    # q에 (현재 비용, 도착지점 노드번호) 저장
+                    heapq.heappush(q, (cost, g[0]))
+        return distance
+    
+    distance_list = [[]] + [dijkstra(i) for i in range(1, n+1)]
+    for i in range(1, n+1):
+        answer = min(distance_list[s][i] + distance_list[i][a] + distance_list[i][b], answer)
+    
+    return answer
