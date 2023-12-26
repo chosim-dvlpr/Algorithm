@@ -1,5 +1,5 @@
-# t초 : 미세먼지 확산 -> 
-# 마지막에 공기청정기 작동
+# t초 : 미세먼지 확산 -> 공기청정기 작동 t회 반복
+
 
 import sys
 from collections import deque
@@ -13,13 +13,12 @@ for _ in range(r):
 # 공기청정기 위치 확인
 for i in range(r): # 공기청정기는 항상 1열에 위치
     if arr[i][0] == -1:
-        # index.append((i, 0))
         index = (i, 0)
         break # 공기청정기는 2행을 차지 => 첫행만 저장
 
 
 # 미세먼지 확산
-delta = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+delta_dust = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
 def dust():
     global arr
@@ -31,7 +30,7 @@ def dust():
                 new_arr[i][j] = -1
             elif arr[i][j] > 0:
                 cnt = 0
-                for d in delta:
+                for d in delta_dust:
                     nr, nc = i+d[0], j+d[1]
                     if 0 <= nr < r and 0 <= nc < c and arr[nr][nc] > -1:
                         new_arr[nr][nc] += arr[i][j]//5
