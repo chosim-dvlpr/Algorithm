@@ -1,8 +1,8 @@
 function solution(operations) {
     let arr = [];
     for (let i=0; i < operations.length; i++) {
-        const word = operations[i][0]
-        const num = operations[i].substr(2)
+        const word = operations[i].split(' ')[0]
+        const num = operations[i].split(' ')[1]
         if (word === 'I') {
             arr.push(num)
             arr.sort((a, b) => a - b);
@@ -12,7 +12,7 @@ function solution(operations) {
             arr.shift()
             continue
         }
-        arr.pop()
+        arr.pop() // 최댓값 삭제
     }
     if (arr.length > 0) {
         return [Number(arr[arr.length-1]), Number(arr[0])]
